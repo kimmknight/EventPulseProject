@@ -60,33 +60,25 @@
             </div>
     
             <div class="d-flex flex-wrap justify-content-center">
-                <div class="card m-3">
+                <div class="card m-3" v-for="event in events">
                     
                     <div class="card-header d-flex align-items-center flex-column p-0">
-                        <img src="gyro.png" class="event-thumb w-100">
+                        <img :src="event.imageURL" class="event-thumb w-100">
                        
-                        <span class="h3 m-3">Gyroscope & Bodyjar - No Touch Obsession</span>
+                        <span class="h3 m-3">{{ event.title }}</span>
                     </div>
                     <div class="card-body">
-                        <div class="card-text">
-                            <p>Two of Australia’s most iconic and legendary acts, Melbourne punk rock stalwarts Bodyjar and Perth rockers Gyrosope are heading out on the road together in what will be one of THE tours of 2023.</p>
-                            
-                            <p>Bodyjar will be celebrating 25 years of their classic album No Touch Red, playing the album in full, which includes the hits Remote Controller and You Say.</p>
-                            
-                            <p>Gyroscope will be celebrating 15 years of Breed Obsession, playing the album in full, which includes the hits Snakeskin & Australia.</p>
-                            
-                            <p>Joining them will be the newly reunited Klinger doing their first lap of Australia in a long time.</p>
+                        <div class="card-text" v-html="event.description">
                         </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-between align-items-center">
-                        <span><b>$61.20</b></span>
-                        <span>Thursday, 14 September</span>
+                        <span><b>{{ event.cost }}</b></span>
+                        <span>{{ event.date }}</span>
                         <button type="button" class="btn btn-success">Buy Ticket(s)</button>
                     </div>
                 </div>
-                
             </div>
-    
+
         </div>
     </div>
 
@@ -95,9 +87,20 @@
 
             data() {
                 return {
-                    dataProperty: "Hello",
-                    anotherProperty: "world"
+                    events: []
                 }
+            },
+
+            methods: {
+                fetchEvents() {
+                    fetch("/events")
+                        .then( (httpResponse) => httpResponse.json() )
+                        .then( (responseData) => { this.events = responseData } )
+                }
+            },
+
+            mounted() {
+                this.fetchEvents()
             }
 
         }
