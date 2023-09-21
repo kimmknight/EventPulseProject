@@ -71,12 +71,12 @@ app.post("/events", function (req, res) {
     // Client is attempting to add a new event
     // Require client to be logged in !!!!!
 
-    let newJob = req.body
+    let newEvent = req.body
 
-    // Insert the new job into the database
-    eventsCollection.insertOne(newJob)
+    // Insert the new event into the database
+    eventsCollection.insertOne(newEvent)
     .then(() => {
-        // Return the updated joblist
+        // Return the updated eventlist
         eventsCollection.find().toArray()
         .then((results) => {
             res.json(results);
@@ -90,14 +90,14 @@ app.delete("/events", function (req, res) {
 
     let eventToDelete = req.body
 
-    // Delete the _id property from the eventToDelete. Leaving it there will cause the job not to be deleted
+    // Delete the _id property from the eventToDelete. Leaving it there will cause the event not to be deleted
     delete eventToDelete._id
 
-    // Delete the job matching eventToDelete from the database
+    // Delete the event matching eventToDelete from the database
 
     eventsCollection.deleteOne(eventToDelete)
     .then(() => {
-        // Return the updated joblist
+        // Return the updated eventlist
         eventsCollection.find().toArray()
         .then((results) => {
             res.json(results);
@@ -112,7 +112,29 @@ app.delete("/events", function (req, res) {
 app.post("/loginverify", function (req, res) {
     // Client has submitted a username/password
     // Sign them in if correct. Redirect to login page if not
+
+        // Find a user in the 'usersCollection' with the provided username and password
+        usersCollection.findOne({ username: req.body.username, password: req.body.password })
+        .then((foundUser) => {
+            if (foundUser) {
+                // If a user is found, set their username in the session variable and redirect to '/private'
+                req.session.username = req.body.username;
+
+                // Redirect logged-in user to the new event page
+                res.redirect("/newevent");
+            } else {
+                // If no user is found, redirect back to the login page
+                return res.redirect("/loginpage");
+            }
+        })
+        .catch((err) => {
+            // Handle any errors that occur during the database query
+            console.error(err); // Display the error in the debug console
+            res.redirect("/loginpage"); // Redirect to login page in case of an error
+        });
 })
+
+
 
 app.get("/logout", function (req, res) {
     // Client wants to logout. Log them out
