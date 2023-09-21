@@ -112,13 +112,57 @@ app.delete("/events", function (req, res) {
 app.post("/loginverify", function (req, res) {
     // Client has submitted a username/password
     // Sign them in if correct. Redirect to login page if not
-})
 
+    
+    // Find a user in the 'usersCollection' with the provided username and password
+    usersCollection.findOne({ username: req.body.username, password: req.body.password })
+    .then((foundUser) => {
+        if (foundUser) {
+            // If a user is found, we know they exist in the database with the correct password
+
+            // Set their username in the session variable and redirect to '/private'
+            req.session.username = req.body.username;
+
+            // Redirect logged-in user to the new event page
+            res.redirect("/newevent.html");
+        } else {
+            // If no user is found, redirect back to the login page
+            return res.redirect("/login.html");
+        }
+    })
+    .catch((err) => {
+        // Handle any errors that occur during the database query
+        console.error(err); // Display the error in the debug console
+        res.redirect("/login.html"); // Redirect to login page in case of an error
+    });
+})
 
 
 app.get("/logout", function (req, res) {
     // Client wants to logout. Log them out
+
+    req.session.destroy()
+    res.redirect("/")
 })
+
+
+// This function "checkLoginDetails" is called by the secured routes to check whether the user is logged in yet
+function checkLoginDetails(req, res, next) {
+
+    // Check whether the session variable "username" exists
+    if (req.session.username) {
+        // The "username" session variable exists, therefore the user must be successfully logged in
+
+        // When we use a "check" function like this with Express, we can indicate that the check is successful by calling the next() function
+        next();
+
+    } else {
+        
+        // The user is not successfully logged in. Redirect them to the login page
+        res.redirect("/login.html");
+
+    }
+}
 
 
 app.listen(3000)
