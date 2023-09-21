@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .navbar-brand > img {
+            width: 3em;
+            filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+        }
+        .card {
+            width: 25em;
+        }
+        .event-thumb {
+            width: 100%;
+            max-height: 15em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark container-fluid" style="background-color: #6f00ff;">
+        <a class="navbar-brand" href="./">
+            <img src="logo.svg">
+        </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">Menu</button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" aria-current="page">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Statistics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="my-3">
+          <input type="text"
+            class="form-control" placeholder="Search">
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="card m-3">
+                
+                <div class="card-header d-flex align-items-center flex-column p-0">
+                    <img src="gyro.png" class="event-thumb w-100">
+                   
+                    <span class="h3 m-3">Gyroscope & Bodyjar - No Touch Obsession</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <p>Two of Australia’s most iconic and legendary acts, Melbourne punk rock stalwarts Bodyjar and Perth rockers Gyrosope are heading out on the road together in what will be one of THE tours of 2023.</p>
+                        
+                        <p>Bodyjar will be celebrating 25 years of their classic album No Touch Red, playing the album in full, which includes the hits Remote Controller and You Say.</p>
+                        
+                        <p>Gyroscope will be celebrating 15 years of Breed Obsession, playing the album in full, which includes the hits Snakeskin & Australia.</p>
+                        
+                        <p>Joining them will be the newly reunited Klinger doing their first lap of Australia in a long time.</p>
+                    </div>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                    <span><b>$61.20</b></span>
+                    <span>Thursday, 14 September</span>
+                    <button type="button" class="btn btn-success">Buy Ticket(s)</button>
+                </div>
+            </div>
+
+            <div class="card m-3">
+                
+                <div class="card-header d-flex align-items-center flex-column p-0">
+                    <img src="bliss.png" class="event-thumb w-100">
+                   
+                    <span class="h3 m-3">BLISS N ESO</span>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <p>Illusive Presents and Frontier Touring are excited to bring legendary Australian hip-hop trio Bliss n Eso back to the stage in 2023 with their Flying Colours 15th Anniversary Tour this October.</p>
+
+                        <p>To celebrate 15 years after their career defining album, the upcoming Flying Colours 15th Anniversary Tour symbolises the moment everything changed for Bliss N Eso and this is a chance for them to thank their fans!   Bliss n Eso will be performing the ARIA Award winning Platinum certified top 10 Flying Colours album in its entirety, which includes the hit singles ‘Woodstock 2008’, ‘Bullet and a Target’, ARIA Platinum ‘The Sea is Rising’ and ARIA Gold ‘Eye of the Storm’ plus performances of their biggest catalogue hits with a few surprises in store!</p>
+                    </div>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                    <span><b>$79.90</b></span>
+                    <span>Thursday, 14 September</span>
+                    <button type="button" class="btn btn-danger disabled">Buy Ticket(s)</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
