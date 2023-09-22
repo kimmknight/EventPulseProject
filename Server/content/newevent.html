@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/vue@3"></script>
 
     <style>
-        .navbar-brand > img {
+        .navbar-brand>img {
             width: 3em;
             filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
         }
@@ -29,8 +29,9 @@
             <a class="navbar-brand" href="./">
                 <img src="logo.svg">
             </a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                aria-expanded="false" aria-label="Toggle navigation">Menu</button>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">Menu</button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
@@ -46,8 +47,32 @@
             </div>
         </nav>
 
-        <main>
-            
+        <main class="container mt-3">
+            <div class="mb-3">
+                <label class="form-label"><b>Title</b></label>
+                <input type="text" class="form-control" v-model="newEvent.title">
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Description</b></label>
+                <textarea type="text" class="form-control" rows="8" v-model="newEvent.description">
+            </textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Cost</b></label>
+                <input type="text" class="form-control" v-model="newEvent.cost">
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Date</b></label>
+                <input type="datetime-local" class="form-control" v-model="newEvent.date">
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Image URL</b></label>
+                <input type="text" class="form-control" v-model="newEvent.imageURL">
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-success" @click="fetchSubmitNewEvent()">Post!</button>
+            </div>
         </main>
     </div>
 
@@ -61,11 +86,23 @@
             },
 
             methods: {
+                fetchSubmitNewEvent() {
+                    fetch('/events', {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
 
-            },
+                        method: "POST",
 
-            mounted() {
+                        body: JSON.stringify(this.newEvent)
 
+                    })
+                        .then((fullResponse) => fullResponse.json())
+                        .then((dataObject) => {
+                            alert("Job submitted!")
+                        })
+                }
             }
 
         }
