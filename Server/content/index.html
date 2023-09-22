@@ -56,21 +56,23 @@
         <div class="container">
             <div class="my-3">
               <input type="text"
-                class="form-control" placeholder="Search">
+                class="form-control" placeholder="Search" v-model="searchTerms">
             </div>
     
             <div class="d-flex flex-wrap justify-content-center">
-                <div class="card m-3" v-for="event in events">
-                    
-                    <div class="card-header d-flex align-items-center flex-column p-0 h-100">
-                        <img :src="event.imageURL" class="event-thumb w-100">
-                       
-                        <div class="h-100 p-2"><span class="h3 m-3">{{ event.title }}</span></div>
-                    </div>
-                    <div class="card-footer text-muted d-flex justify-content-between align-items-center">
-                        <span><b>{{ event.cost }}</b></span>
-                        <span>{{ event.date }}</span>
-                        <button type="button" class="btn btn-success" @click="currentEvent = event" data-bs-toggle="modal" data-bs-target="#modalId">More</button>
+                <div v-for="event in events">
+                    <div class="card m-3" v-if="event.title.toLowerCase().includes(searchTerms.toLowerCase())">
+                        
+                        <div class="card-header d-flex align-items-center flex-column p-0 h-100">
+                            <img :src="event.imageURL" class="event-thumb w-100">
+                           
+                            <div class="h-100 p-2"><span class="h3 m-3">{{ event.title }}</span></div>
+                        </div>
+                        <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                            <span><b>{{ event.cost }}</b></span>
+                            <span>{{ event.date }}</span>
+                            <button type="button" class="btn btn-success" @click="currentEvent = event" data-bs-toggle="modal" data-bs-target="#modalId">More</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,7 +109,8 @@
             data() {
                 return {
                     events: [],
-                    currentEvent: {}
+                    currentEvent: {},
+                    searchTerms: ""
                 }
             },
 
