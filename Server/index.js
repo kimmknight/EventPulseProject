@@ -79,7 +79,7 @@ app.get("/allevents", function (req, res) {
     });
 })
 
-app.post("/events", function (req, res) {
+app.post("/events", checkLoginDetails, function (req, res) {
     // Client is attempting to add a new event
     // Require client to be logged in !!!!!
 
@@ -100,7 +100,7 @@ app.post("/events", function (req, res) {
     });
 })
 
-app.delete("/events", function (req, res) {
+app.delete("/events", checkLoginDetails, function (req, res) {
     // Client is attempting to delete an event
     // Require client to be logged in !!!!!
 
@@ -131,7 +131,7 @@ app.post("/loginverify", function (req, res) {
 
     
     // Find a user in the 'usersCollection' with the provided username and password
-    usersCollection.findOne({ username: req.body.username, password: req.body.password })
+    usersCollection.findOne({ username: req.body.username.toLowerCase(), password: req.body.password })
     .then((foundUser) => {
         if (foundUser) {
             // If a user is found, we know they exist in the database with the correct password
