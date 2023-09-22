@@ -60,6 +60,18 @@ app.use("/", express.static("content"))
 
 app.get("/events", function (req, res) {
     // Client is requesting JSON event list
+    // Only get events in the future
+
+    now = new Date()
+
+    eventsCollection.find({ date: {$gt: now} }).sort({ date: 1 }).toArray()
+    .then((results) => {
+        res.json(results);
+    });
+})
+
+app.get("/allevents", function (req, res) {
+    // Client all events (not only future ones). Used for stats page
 
     eventsCollection.find().toArray()
     .then((results) => {
@@ -72,6 +84,10 @@ app.post("/events", function (req, res) {
     // Require client to be logged in !!!!!
 
     let newEvent = req.body
+
+    // Replace date/time string with date stored as the correct datatype (so database can store/sort it properly)
+    properDate = new Date(newEvent.date)
+    newEvent.date = properDate
 
     // Insert the new event into the database
     eventsCollection.insertOne(newEvent)
