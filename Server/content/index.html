@@ -15,6 +15,9 @@
     <!-- Vue 3 -->
     <script src="https://unpkg.com/vue@3"></script>
 
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
     <style>
         .navbar-brand > img {
             width: 3em;
@@ -70,7 +73,7 @@
                         </div>
                         <div class="card-footer text-muted d-flex justify-content-between align-items-center">
                             <span><b>{{ event.cost }}</b></span>
-                            <span>{{ event.date }}</span>
+                            <span>{{ relativeDate(event.date) }}</span>
                             <button type="button" class="btn btn-success" @click="currentEvent = event" data-bs-toggle="modal" data-bs-target="#modalId">More</button>
                         </div>
                     </div>
@@ -119,6 +122,10 @@
                     fetch("/events")
                         .then( (httpResponse) => httpResponse.json() )
                         .then( (responseData) => { this.events = responseData } )
+                },
+
+                relativeDate(date) {
+                    return moment(date).fromNow()
                 }
             },
 
